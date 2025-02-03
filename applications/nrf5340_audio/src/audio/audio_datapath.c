@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2021, PACKETCRAFT, INC.
  *
- *  SPDX-License-Identifier: LicenseRef-PCFT
+ *  SPDX-License-Identifier: LicenseRef-P CFT
  */
 
 #include "audio_datapath.h"
