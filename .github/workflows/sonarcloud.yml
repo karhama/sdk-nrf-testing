@@ -56,8 +56,9 @@ jobs:
             --quarantine-list scripts/quarantine.yaml --quarantine-list scripts/quarantine_integration.yaml \
             -T applications/nrf5340_audio
 
-      - name: SonarQube Scan
+      - name: SonarQube Scan main
         uses: SonarSource/sonarqube-scan-action@v4.2.1
+        if: github.event_name != 'pull_request'
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
@@ -69,6 +70,29 @@ jobs:
             --define sonar.organization=nrfconnect
             --define sonar.projectKey=nrfconnect_sdk-nrf-testing
             --define sonar.sourceEncoding=US-ASCII
+
+      - name: SonarQube Scan PR
+        uses: SonarSource/sonarqube-scan-action@v4.2.1
+        if: github.event_name == 'pull_request'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        with:
+          # Consult https://docs.sonarsource.com/sonarqube-server/latest/analyzing-source-code/scanners/sonarscanner/ for more information and options
+          args: >
+            --define sonar.cfamily.compile-commands="ncs/nrf/${{ env.BUILD_WRAPPER_OUT_DIR }}/compile_commands.json"
+            --define sonar.sources=ncs/nrf/applications/nrf5340_audio
+            --define sonar.inclusions=**/*.c,**/*.h
+            --define sonar.organization=nrfconnect
+            --define sonar.projectKey=nrfconnect_sdk-nrf-testing
+            --define sonar.sourceEncoding=US-ASCII
+            --define sonar.scm.revision=${{ env.HEAD_SHA }} 
+            --define sonar.pullrequest.key=${{ env.PR_NUMBER }} 
+            --define sonar.pullrequest.branch=${{ env.PR_BRANCH }} 
+            --define sonar.pullrequest.base=${{ env.BASE_REF }}
             
    #   - name: Run sonar-scanner on main
    #     working-directory: ncs/nrf
