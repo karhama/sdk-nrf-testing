@@ -67,6 +67,7 @@ jobs:
             --define sonar.inclusions=**/*.c,**/*.h
             --define sonar.organization=nrfconnect
             --define sonar.projectKey=nrfconnect_sdk-nrf-testing
+            --define sonar.sourceEncoding=US-ASCII
             
    #   - name: Run sonar-scanner on main
    #     working-directory: ncs/nrf
