@@ -64,8 +64,9 @@ jobs:
           # Consult https://docs.sonarsource.com/sonarqube-server/latest/analyzing-source-code/scanners/sonarscanner/ for more information and options
           args: >
             --define sonar.cfamily.compile-commands="${{ env.BUILD_WRAPPER_OUT_DIR }}/compile_commands.json"
-            --define project.settings=sonar-project.properties
             --define sonar.inclusions=**/*.c,**/*.h
+            --define sonar.organization=nrfconnect
+            --define sonar.projectKey=nrfconnect_sdk-nrf-testing
             
    #   - name: Run sonar-scanner on main
    #     working-directory: ncs/nrf
