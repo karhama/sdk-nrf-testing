@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023 Nordic Semiconductor ASA
  *
- * SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
+ * SPDX-License-Identifier: LicenseRef-N ordic-5-Clause
  */
 
 #include "bt_mgmt.h"
