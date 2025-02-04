@@ -4,18 +4,19 @@ on:
     branches:
       - main
     paths:
-      - 'applications/nrf5340_audio/**/*.c'
-      - 'applications/nrf5340_audio/**/*.h'
+      - '.github/workflows/sonarcloud.yml'
+      - 'applications/nrf5340_audio/**/*'
+      - 'applications/nrf5340_audio/**/*'
   pull_request_target:
     types: [opened, synchronize, reopened]
     paths:
-      - 'applications/nrf5340_audio/**/*.c'
-      - 'applications/nrf5340_audio/**/*.h'
+      - 'applications/nrf5340_audio/**/*'
+      - 'applications/nrf5340_audio/**/*'
 
 jobs:
   build:
     name: Build and analyze
-    runs-on: large16
+    runs-on: ubuntu-22.04
     container: ghcr.io/nrfconnect/sdk-nrf-toolchain:v2.9.0
     defaults:
       run:
